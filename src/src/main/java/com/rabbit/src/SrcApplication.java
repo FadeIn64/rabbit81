@@ -1,5 +1,6 @@
 package com.rabbit.src;
 
+import com.rabbit.src.ticketsServer.TicketsDBAdapter;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
@@ -18,6 +19,8 @@ public class SrcApplication {
 //		ctx.getBean("sample", SampleController.class).queue1();
 //		ctx.getBean("sample", SampleController.class).queue1();
 //		ctx.getBean("sample", SampleController.class).queue1();
+
+
 	}
 
 }

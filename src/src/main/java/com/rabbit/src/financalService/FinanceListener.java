@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 public class FinanceListener {
 
     @RabbitListener(queues = "financeOrchestr")
-    void listenerOrchester(){
-
+    void listenerOrchester(String msg){
+        System.out.println(msg);
     }
 }

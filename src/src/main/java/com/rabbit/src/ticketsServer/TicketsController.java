@@ -13,9 +13,17 @@ public class TicketsController {
 
     private Adapter<Ticket, Integer> adapter = new TicketsDBAdapter();
 
+    @Autowired
+    AmqpTemplate template;
+
     String buyTicket(Integer id){
         if (!adapter.contentsObj(id)) return "error";
         String res = adapter.get(id).description;
         return res;
+    }
+
+    void sendMSGToFinance(String msg){
+        System.out.println("TICKET_SERVICE_SEND_MSG");
+        template.convertAndSend("financeOrchestr", msg);
     }
 }

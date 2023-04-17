@@ -11,16 +11,13 @@ import org.springframework.stereotype.Component;
 public class TicketsListener {
 
     @Autowired
-    AmqpTemplate template;
-
-    @Autowired
     TicketsController controller;
 
     @RabbitListener(queues = "finance_tickets")
     void listener(String msg){
-        System.out.println("TICKET_SERVICE_SEND_MSG");
         String[] msgs = msg.split("; ");
-        template.convertAndSend("financeOrchestr", msgs[0] + "; " + controller.buyTicket(Integer.valueOf(msgs[1])));
+        String res = controller.buyTicket(Integer.valueOf(msgs[1]));
+        controller.sendMSGToFinance(msgs[0]+"; "+res);
     }
 
 }

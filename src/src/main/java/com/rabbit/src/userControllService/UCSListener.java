@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 public class UCSListener {
 
     @RabbitListener(queues = "finance_UCS")
-    void listener(){
+    void listener(String msg){
 
     }
 

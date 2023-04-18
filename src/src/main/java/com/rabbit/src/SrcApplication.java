@@ -1,19 +1,14 @@
 package com.rabbit.src;
 
-import com.rabbit.src.ticketsServer.TicketsDBAdapter;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Import;
-
-import java.util.Arrays;
 
 @SpringBootApplication
 @Import(Config.class)
 public class SrcApplication {
 
 	public static void main(String[] args) {
-		System.out.println(Arrays.toString("asds; 5".split("; ")));
 		SpringApplication.run(SrcApplication.class, args);
 		System.out.println("start");
 

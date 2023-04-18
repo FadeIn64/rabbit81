@@ -1,7 +1,9 @@
 package com.rabbit.src.ticketsServer;
 
 import com.rabbit.src.Adapter;
+import org.springframework.stereotype.Component;
 
+@Component
 public class TicketsDBAdapter implements Adapter<Ticket, Integer> {
 
     public Ticket get(Integer id){

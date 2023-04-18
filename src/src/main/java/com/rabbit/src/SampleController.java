@@ -16,7 +16,7 @@ public class SampleController {
     @ResponseBody
     String queue1(){
         System.out.println("Send");
-        template.convertAndSend("finance_tickets", "tryBuy_asds; 2");
+        template.convertAndSend("finance_UCS", "verify_asdsd; xxx");
         return "send!!!";
     }
 }

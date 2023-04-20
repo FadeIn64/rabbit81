@@ -11,6 +11,7 @@ public class SrcApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(SrcApplication.class, args);
 		System.out.println("start");
+		//System.out.println(new Message("UCS\\*response\\^assd\\|sucs"));
 
 //		ApplicationContext ctx = MyContext.context;
 //

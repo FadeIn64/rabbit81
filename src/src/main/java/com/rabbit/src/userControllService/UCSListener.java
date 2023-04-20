@@ -1,6 +1,7 @@
 package com.rabbit.src.userControllService;
 
 import com.rabbit.src.MSGConvertor;
+import com.rabbit.src.Message;
 import org.springframework.amqp.rabbit.annotation.EnableRabbit;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,23 +14,31 @@ import java.util.Objects;
 @Component
 public class UCSListener {
 
+    private static final String SERVER_NAME = "ucs";
+
     @Autowired
     UsersController controller;
 
     @RabbitListener(queues = "finance_UCS")
     void listener(String msg){
 
-        List<String> attributes = MSGConvertor.getAttributes(msg);
-        String res;
+        System.out.println("UCS_CHECK");
+        System.out.println(msg);
 
-        if (Objects.equals(attributes.get(0), "verify")){
-            res = MSGConvertor.createReturnMSG( attributes.get(1)
-                    , controller.verifyUser(attributes.get(2)));
+        Message message = new Message(msg);
+        //List<String> attributes = MSGConvertor.getAttributes(msg);
+
+        System.out.println(message);
+        Message res;
+
+        if (Objects.equals(message.methodName, "verify")){
+            res = new Message(SERVER_NAME, "response", message.proccesID
+                    , controller.verifyUser(message.parameters));
         }
         else {
-            res = MSGConvertor.createReturnMSG(attributes.get(1), "error:CalledMethodDon'tExist");
+            res = new Message(SERVER_NAME, "response", message.proccesID, "error:CalledMethodDon'tExist");
         }
-        controller.sendMSGToFinance(res);
+        controller.sendMSGToFinance(res.toString());
     }
 
 

@@ -20,7 +20,7 @@ public class UsersController {
     }
 
     void sendMSGToFinance(String msg){
-        System.out.println("TICKET_SERVICE_SEND_MSG");
+        System.out.println("UCS_SEND_MSG");
         template.convertAndSend("financeOrchestr", msg);
     }
 

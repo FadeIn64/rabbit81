@@ -1,6 +1,7 @@
 package com.rabbit.src.ticketsServer;
 
 import com.rabbit.src.MSGConvertor;
+import com.rabbit.src.Message;
 import org.springframework.amqp.rabbit.annotation.EnableRabbit;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,22 +14,25 @@ import java.util.Objects;
 @Component
 public class TicketsListener {
 
+    private static final String SERVER_NAME = "tickets";
+
     @Autowired
     TicketsController controller;
 
     @RabbitListener(queues = "finance_tickets")
     void listener(String msg){
-        List<String> attributes = MSGConvertor.getAttributes(msg);
-        String res;
+        Message message = new Message(msg);
+        //List<String> attributes = MSGConvertor.getAttributes(msg);
+        Message res;
 
-        if (Objects.equals(attributes.get(0), "tryBuy")){
-            res = MSGConvertor.createReturnMSG( attributes.get(1)
-                    , controller.tryBuyTicket(Integer.valueOf(attributes.get(2))));
+        if (Objects.equals(message.methodName, "tryBuy")){
+            res = new Message(SERVER_NAME, "response", message.proccesID
+                    , controller.tryBuyTicket(Integer.valueOf(message.parameters)));
         }
         else {
-            res = MSGConvertor.createReturnMSG(attributes.get(1), "error:CalledMethodDon'tExist");
+            res = new Message(SERVER_NAME, "response", message.proccesID, "error:CalledMethodDon'tExist");
         }
-        controller.sendMSGToFinance(res);
+        controller.sendMSGToFinance(res.toString());
     }
 
 }

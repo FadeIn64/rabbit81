@@ -43,8 +43,13 @@ public class Config {
         return new Queue("finance_UCS");
     }
     @Bean
-    Queue financeOrchestr(){
+    Queue financeOrchestrQueue(){
         return new Queue("financeOrchestr");
+    }
+
+    @Bean
+    Queue orchestFinance(){
+        return new Queue("orchestFinance");
     }
 
 }

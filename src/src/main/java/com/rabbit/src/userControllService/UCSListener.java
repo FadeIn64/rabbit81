@@ -22,17 +22,11 @@ public class UCSListener {
     @RabbitListener(queues = "finance_UCS")
     void listener(String msg){
 
-        System.out.println("UCS_CHECK");
-        System.out.println(msg);
-
         Message message = new Message(msg);
-        //List<String> attributes = MSGConvertor.getAttributes(msg);
-
-        System.out.println(message);
         Message res;
 
         if (Objects.equals(message.methodName, "verify")){
-            res = new Message(SERVER_NAME, "response", message.proccesID
+            res = new Message(SERVER_NAME, "response:verify", message.proccesID
                     , controller.verifyUser(message.parameters));
         }
         else {

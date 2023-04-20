@@ -25,7 +25,7 @@ public class SampleController {
 //        System.out.println(msg);
 //        template.convertAndSend("finance_UCS", msg.toString());
 
-        orchestr.createOrder("xxx", 2);
+        orchestr.createOrder("xxx", 7);
 
         return "send!!!";
     }

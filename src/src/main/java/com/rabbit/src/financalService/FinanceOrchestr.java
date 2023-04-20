@@ -31,6 +31,9 @@ public class FinanceOrchestr {
         Order order = inWorkOrders.get(proccesID);
         if ("false".equals(result)){
             order.status = "Order doesn't exist : user not verify";
+
+            inWorkOrders.remove(proccesID);
+            sendMessageToFinanceController(order.toString());
             return;
         }
         sendMessageToTickets((new Message(SERVER_NAME, "tryBuy", String.valueOf(proccesID), String.valueOf(order.ticketId))).toString());
@@ -45,6 +48,9 @@ public class FinanceOrchestr {
 
         if ("error".equals(status)){
             order.status = "Order doesn't exist : " + description;
+
+            inWorkOrders.remove(proccesID);
+            sendMessageToFinanceController(order.toString());
             return;
         }
 
@@ -59,6 +65,7 @@ public class FinanceOrchestr {
 
         if ("error".equals(status)){
             order.status = "Order doesn't exist : " + description;
+            sendMessageToFinanceController(order.toString());
             return;
         }
 
